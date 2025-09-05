@@ -10,7 +10,11 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-app.use(cors()); // In production, restrict origins
+app.use(cors({
+  origin: "*",   // later replace with your frontend domain
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  allowedHeaders: ["Content-Type", "Authorization"]
+}));
 
 app.get("/api/news", async (req, res) => {
   const q = req.query.search || "india";
